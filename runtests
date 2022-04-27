@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+black --check hotmetal tests
+flake8 hotmetal tests
+isort --check --diff hotmetal tests
+python -m unittest $@

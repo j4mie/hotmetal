@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+black hotmetal tests
+isort hotmetal tests
+blacken-docs README.md
