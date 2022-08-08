@@ -39,6 +39,14 @@ class NodePredicatesIgnoreTextNodesTestCase(TestCase):
         self.assertEqual(result, [("div", {"id": "test"}, ["hello world"])])
 
 
+class NodePredicatesIgnoreFunctionNodesTestCase(TestCase):
+    def test_basic_find_with_function_node(self):
+        nodes = [("div", {"id": "test"}, [lambda _: "hello world"])]
+        predicate = id_is("test")
+        result = [*find(nodes, predicate)]
+        self.assertEqual(result, nodes)
+
+
 class TagIsTestCase(TestCase):
     def test_match(self):
         node = ("div", {}, [])
