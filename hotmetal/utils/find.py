@@ -14,6 +14,10 @@ def has_class(cls):
     return false_if_text(lambda node: cls in node[1].get("class", "").split(" "))
 
 
+def text_contains(text):
+    return lambda node: isinstance(node, str) and text in node
+
+
 def or_(*predicates):
     return lambda node: any(predicate(node) for predicate in predicates)
 

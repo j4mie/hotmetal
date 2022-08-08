@@ -1,4 +1,13 @@
-from hotmetal.utils.find import and_, find, has_class, id_is, not_, or_, tag_is
+from hotmetal.utils.find import (
+    and_,
+    find,
+    has_class,
+    id_is,
+    not_,
+    or_,
+    tag_is,
+    text_contains,
+)
 from unittest import TestCase
 
 
@@ -58,6 +67,16 @@ class HasClassTestCase(TestCase):
     def test_no_match(self):
         node = ("div", {"class": "foo bla baz"}, [])
         self.assertIs(has_class("bar")(node), False)
+
+
+class TextContainsTestCase(TestCase):
+    def test_match(self):
+        node = "this is a text node"
+        self.assertIs(text_contains("text")(node), True)
+
+    def test_no_match(self):
+        node = "this is a text node"
+        self.assertIs(text_contains("nope")(node), False)
 
 
 class OrTestCase(TestCase):
