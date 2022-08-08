@@ -1,3 +1,6 @@
+TAG, ATTRS, CHILDREN = 0, 1, 2
+
+
 def is_tree_node(node):
     return not isinstance(node, str) and not callable(node)
 
@@ -7,15 +10,15 @@ def tree_node_only(predicate):
 
 
 def tag_is(tag):
-    return tree_node_only(lambda node: node[0] == tag)
+    return tree_node_only(lambda node: node[TAG] == tag)
 
 
 def id_is(id):
-    return tree_node_only(lambda node: node[1].get("id") == id)
+    return tree_node_only(lambda node: node[ATTRS].get("id") == id)
 
 
 def has_class(cls):
-    return tree_node_only(lambda node: cls in node[1].get("class", "").split(" "))
+    return tree_node_only(lambda node: cls in node[ATTRS].get("class", "").split(" "))
 
 
 def text_contains(text):
@@ -23,7 +26,7 @@ def text_contains(text):
 
 
 def direct_children(predicate):
-    return lambda node: any(predicate(child) for child in node[2])
+    return lambda node: any(predicate(child) for child in node[CHILDREN])
 
 
 def or_(*predicates):
@@ -41,4 +44,4 @@ def not_(predicate):
 def find(nodes, predicate):
     for node in nodes:
         yield from [node] if predicate(node) else []
-        yield from find(node[2], predicate) if is_tree_node(node) else []
+        yield from find(node[CHILDREN], predicate) if is_tree_node(node) else []

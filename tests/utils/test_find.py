@@ -1,5 +1,6 @@
 from hotmetal.utils.find import (
     and_,
+    CHILDREN,
     direct_children,
     find,
     has_class,
@@ -163,5 +164,5 @@ class IntegrationTestCase(TestCase):
         page = self.generate_page(title="Test Page")
         [header] = find([page], id_is("header"))
         [h1] = find([header], tag_is("h1"))
-        [title] = h1[2]
+        [title] = h1[CHILDREN]
         self.assertEqual(title, "Test Page")
