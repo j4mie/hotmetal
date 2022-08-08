@@ -22,6 +22,10 @@ def text_contains(text):
     return lambda node: isinstance(node, str) and text in node
 
 
+def direct_children(predicate):
+    return lambda node: any(predicate(child) for child in node[2])
+
+
 def or_(*predicates):
     return lambda node: any(predicate(node) for predicate in predicates)
 

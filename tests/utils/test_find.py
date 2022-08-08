@@ -1,5 +1,6 @@
 from hotmetal.utils.find import (
     and_,
+    direct_children,
     find,
     has_class,
     id_is,
@@ -127,3 +128,11 @@ class NotTestCase(TestCase):
     def test_no_match(self):
         node = ("div", {}, [])
         self.assertIs(not_(tag_is("div"))(node), False)
+
+
+class DirectChildrenTestCase(TestCase):
+    def test_match(self):
+        nodes = [("div", {}, [("div", {"id": "test"}, [])]), ("div", {}, [])]
+        predicate = direct_children(id_is("test"))
+        result = [*find(nodes, predicate)]
+        self.assertEqual(result, [("div", {}, [("div", {"id": "test"}, [])])])
