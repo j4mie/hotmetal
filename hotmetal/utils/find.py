@@ -1,13 +1,17 @@
+def false_if_text(predicate):
+    return lambda node: not isinstance(node, str) and predicate(node)
+
+
 def tag_is(tag):
-    return lambda node: node[0] == tag
+    return false_if_text(lambda node: node[0] == tag)
 
 
 def id_is(id):
-    return lambda node: node[1].get("id") == id
+    return false_if_text(lambda node: node[1].get("id") == id)
 
 
 def has_class(cls):
-    return lambda node: cls in node[1].get("class", "").split(" ")
+    return false_if_text(lambda node: cls in node[1].get("class", "").split(" "))
 
 
 def or_(*predicates):
