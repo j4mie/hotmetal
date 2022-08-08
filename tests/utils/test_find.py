@@ -136,3 +136,31 @@ class DirectChildrenTestCase(TestCase):
         predicate = direct_children(id_is("test"))
         result = [*find(nodes, predicate)]
         self.assertEqual(result, [("div", {}, [("div", {"id": "test"}, [])])])
+
+
+class IntegrationTestCase(TestCase):
+    def generate_page(self, title):
+        return (
+            "html",
+            {},
+            [
+                ("head", {}, [("title", {}, ["Test Page"])]),
+                (
+                    "body",
+                    {},
+                    [
+                        (
+                            "div",
+                            {"class": "wrapper"},
+                            [("section", {"id": "header"}, [("h1", {}, [title])])],
+                        )
+                    ],
+                ),
+            ],
+        )
+
+    def test_find_title(self):
+        page = self.generate_page(title="Test Page")
+        [h1] = find(find([page], id_is("header")), tag_is("h1"))
+        [title] = h1[2]
+        self.assertEqual(title, "Test Page")
