@@ -161,6 +161,7 @@ class IntegrationTestCase(TestCase):
 
     def test_find_title(self):
         page = self.generate_page(title="Test Page")
-        [h1] = find(find([page], id_is("header")), tag_is("h1"))
+        [header] = find([page], id_is("header"))
+        [h1] = find([header], tag_is("h1"))
         [title] = h1[2]
         self.assertEqual(title, "Test Page")
