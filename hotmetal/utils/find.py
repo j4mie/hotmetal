@@ -1,9 +1,9 @@
+def is_tree_node(node):
+    return not isinstance(node, str) and not callable(node)
+
+
 def tree_node_only(predicate):
-    return (
-        lambda node: not isinstance(node, str)
-        and not callable(node)
-        and predicate(node)
-    )
+    return lambda node: is_tree_node(node) and predicate(node)
 
 
 def tag_is(tag):
@@ -41,4 +41,4 @@ def not_(predicate):
 def find(nodes, predicate):
     for node in nodes:
         yield from [node] if predicate(node) else []
-        yield from [child for child in node[2] if predicate(child)]
+        yield from find(node[2], predicate) if is_tree_node(node) else []
