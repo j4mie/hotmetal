@@ -152,7 +152,15 @@ def example_page(title):
                     (
                         "div",
                         {"class": "wrapper"},
-                        [("section", {"id": "header"}, [("h1", {}, [title])])],
+                        [
+                            (
+                                "section",
+                                {"id": "header"},
+                                [
+                                    ("h1", {}, [title]),
+                                ],
+                            ),
+                        ],
                     )
                 ],
             ),
