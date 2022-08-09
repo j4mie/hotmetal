@@ -4,6 +4,7 @@ from hotmetal.utils.find import (
     direct_children,
     find,
     has_attr,
+    has_attr_with_value,
     has_class,
     id_is,
     not_,
@@ -88,6 +89,17 @@ class HasAttrTestCase(TestCase):
     def test_no_match(self):
         node = ("div", {"nope": "nope"}, [])
         self.assertIs(has_attr("yep")(node), False)
+
+
+class HasAttrWithValueTestCase(TestCase):
+    def test_match(self):
+        node = ("div", {"yep": "oh yep"}, [])
+        self.assertIs(has_attr_with_value("yep", "oh yep")(node), True)
+
+    def test_no_match(self):
+        node = ("div", {"nope": "nope"}, [])
+        self.assertIs(has_attr_with_value("yep", "nope")(node), False)
+        self.assertIs(has_attr_with_value("nope", "yep")(node), False)
 
 
 class TextContainsTestCase(TestCase):

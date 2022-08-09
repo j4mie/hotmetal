@@ -25,6 +25,10 @@ def has_attr(attr):
     return tree_node_only(lambda node: attr in node[ATTRS])
 
 
+def has_attr_with_value(attr, value):
+    return tree_node_only(lambda node: node[ATTRS].get(attr) == value)
+
+
 def text_contains(text):
     return lambda node: isinstance(node, str) and text in node
 
