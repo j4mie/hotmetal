@@ -3,6 +3,7 @@ from hotmetal.utils.find import (
     CHILDREN,
     direct_children,
     find,
+    has_attr,
     has_class,
     id_is,
     not_,
@@ -77,6 +78,16 @@ class HasClassTestCase(TestCase):
     def test_no_match(self):
         node = ("div", {"class": "foo bla baz"}, [])
         self.assertIs(has_class("bar")(node), False)
+
+
+class HasAttrTestCase(TestCase):
+    def test_match(self):
+        node = ("div", {"yep": "yep"}, [])
+        self.assertIs(has_attr("yep")(node), True)
+
+    def test_no_match(self):
+        node = ("div", {"nope": "nope"}, [])
+        self.assertIs(has_attr("yep")(node), False)
 
 
 class TextContainsTestCase(TestCase):

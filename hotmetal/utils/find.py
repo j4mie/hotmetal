@@ -21,6 +21,10 @@ def has_class(cls):
     return tree_node_only(lambda node: cls in node[ATTRS].get("class", "").split(" "))
 
 
+def has_attr(attr):
+    return tree_node_only(lambda node: attr in node[ATTRS])
+
+
 def text_contains(text):
     return lambda node: isinstance(node, str) and text in node
 
