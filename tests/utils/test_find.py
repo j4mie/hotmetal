@@ -139,29 +139,30 @@ class DirectChildrenTestCase(TestCase):
         self.assertEqual(result, [("div", {}, [("div", {"id": "test"}, [])])])
 
 
-class IntegrationTestCase(TestCase):
-    def generate_page(self, title):
-        return (
-            "html",
-            {},
-            [
-                ("head", {}, [("title", {}, ["Test Page"])]),
-                (
-                    "body",
-                    {},
-                    [
-                        (
-                            "div",
-                            {"class": "wrapper"},
-                            [("section", {"id": "header"}, [("h1", {}, [title])])],
-                        )
-                    ],
-                ),
-            ],
-        )
+def example_page(title):
+    return (
+        "html",
+        {},
+        [
+            ("head", {}, [("title", {}, ["Test Page"])]),
+            (
+                "body",
+                {},
+                [
+                    (
+                        "div",
+                        {"class": "wrapper"},
+                        [("section", {"id": "header"}, [("h1", {}, [title])])],
+                    )
+                ],
+            ),
+        ],
+    )
 
-    def test_find_title(self):
-        page = self.generate_page(title="Test Page")
+
+class ExampleComponentTestCase(TestCase):
+    def test_title(self):
+        page = example_page(title="Test Page")
         [header] = find([page], id_is("header"))
         [h1] = find([header], tag_is("h1"))
         [title] = h1[CHILDREN]
