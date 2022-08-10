@@ -189,16 +189,16 @@ The `render` function takes an `indent` argument, which is a integer used to con
 
 ## Testing tools
 
-When writing tests for components, it's often useful to be able to search through a tree to find particular nodes and make assertions about them. To help with this, `hotmetal` provides a `find` function, which takes an iterable of nodes and a predicate callable, and returns a generator of nodes that match the predicate (using depth-first pre-order traversal of the nodes, much like the browser's [`querySelectorAll` function](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)).
+When writing tests for components, it's often useful to be able to search through a tree to find particular nodes and make assertions about them. To help with this, `hotmetal` provides a `find` function, which takes an iterable of nodes and a predicate callable, and returns a generator that yields nodes that match the predicate (using depth-first pre-order traversal of the nodes, much like the browser's [`querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) function).
 
-Given the following component:
+For example, given the following component:
 
 ```python
 def header(title):
     return ("div", {"class": "header"}, [("h1", {}, [title])])
 ```
 
-For example, you could write a test something like this:
+You could write a test something like this:
 
 ```python
 from hotmetal.utils.find import find
@@ -217,9 +217,9 @@ class HeaderTestCase(TestCase):
         self.assertEqual(children, ["hello world"])
 ```
 
-Here, a `lambda` is being used to match against each node in the tree, which returns `True` or `False` depending on whether that node should be included in the results.
+Here, a `lambda` is being used to match against each node in the tree, which returns `True` or `False` depending on whether that node should be included in the results. When writing the predicate, remember that the `node` argument may be a tree node (a tuple), or a text node (a string), or a function (for nodes that require `context`, see above).
 
-However, rather than writing the `predicate` function yourself, a selection of functions are provided that address common requirements for finding nodes:
+As an alternative to writing the `predicate` function yourself, a selection of functions are provided that address common requirements for finding nodes:
 
 ### `hotmetal.utils.find.tag_is(tag)`
 
