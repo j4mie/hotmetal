@@ -198,7 +198,7 @@ def header(title):
     return ("div", {"class": "header"}, [("h1", {}, [title])])
 ```
 
-You could, for example, write a test something like this:
+For example, you could write a test something like this:
 
 ```python
 from hotmetal.utils.find import find
