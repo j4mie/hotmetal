@@ -217,7 +217,7 @@ class HeaderTestCase(TestCase):
         self.assertEqual(children, ["hello world"])
 ```
 
-Here, a `lambda` function is being used to match against each node in the tree, which returns `True` or `False` depending on whether that node should be included in the results.
+Here, a `lambda` is being used to match against each node in the tree, which returns `True` or `False` depending on whether that node should be included in the results.
 
 However, rather than writing the `predicate` function yourself, a selection of functions are provided that address common requirements for finding nodes:
 
