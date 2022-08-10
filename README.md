@@ -16,7 +16,7 @@ Install from PyPI
 
 First, read [a quick introduction to HTML](https://html.spec.whatwg.org/#a-quick-introduction-to-html). Go on, it's important.
 
-An HTML document represents a tree of nodes. Each node (called an "element") consists of exactly three things: a **tag name** (`div`, `p`, `title` etc), a collection of **attributes** (a mapping of keys to values) and a list of **children** (other elements or text nested inside the node).
+An HTML document represents a tree of nodes. Each node (called an "element") consists of exactly three things: a **tag name** (such as `div`, `p` or `title`), a collection of **attributes** (a mapping of keys to values) and a list of **children** (other elements or text nested inside the node).
 
 So: that's a **tag name** (a string), **attributes** (a mapping), and **children** (a list).
 
