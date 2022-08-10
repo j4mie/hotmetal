@@ -17,12 +17,12 @@ def id_is(id):
     return has_attr_with_value("id", id)
 
 
-def attr_matches(attr, predicate):
+def attr_value_matches(attr, predicate):
     return and_(has_attr(attr), lambda node: predicate(node[ATTRS][attr]))
 
 
 def has_class(cls):
-    return attr_matches("class", lambda attr_value: cls in attr_value.split(" "))
+    return attr_value_matches("class", lambda attr_value: cls in attr_value.split(" "))
 
 
 def has_attr(attr):
@@ -30,7 +30,7 @@ def has_attr(attr):
 
 
 def has_attr_with_value(attr, value):
-    return attr_matches(attr, lambda attr_value: attr_value == value)
+    return attr_value_matches(attr, lambda attr_value: attr_value == value)
 
 
 def text_contains(text):
