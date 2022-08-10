@@ -8,6 +8,9 @@ from hotmetal.utils.find import (
     has_attr_with_value,
     has_class,
     id_is,
+    is_context_node,
+    is_text_node,
+    is_tree_node,
     not_,
     or_,
     tag_is,
@@ -34,6 +37,28 @@ class FindTestCase(TestCase):
         predicate = tag_is("p")
         result = [*find(nodes, predicate)]
         self.assertEqual(result, [("p", {}, [])])
+
+
+class IsTreeNodeTestCase(TestCase):
+    def test_match(self):
+        nodes = [("div", {}, []), "text", lambda _: "context"]
+        result = [*find(nodes, is_tree_node)]
+        self.assertEqual(result, [("div", {}, [])])
+
+
+class IsTextNodeTestCase(TestCase):
+    def test_match(self):
+        nodes = [("div", {}, []), "text", lambda _: "context"]
+        result = [*find(nodes, is_text_node)]
+        self.assertEqual(result, ["text"])
+
+
+class IsContextNodeTestCase(TestCase):
+    def test_match(self):
+        context_node = lambda _: "context"  # noqa: E731
+        nodes = [("div", {}, []), "text", context_node]
+        result = [*find(nodes, is_context_node)]
+        self.assertEqual(result, [context_node])
 
 
 class NodePredicatesIgnoreTextNodesTestCase(TestCase):

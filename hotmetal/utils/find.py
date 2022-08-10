@@ -1,16 +1,20 @@
 TAG, ATTRS, CHILDREN = 0, 1, 2
 
 
+def is_text_node(node):
+    return isinstance(node, str)
+
+
+def is_context_node(node):
+    return callable(node)
+
+
 def is_tree_node(node):
-    return not isinstance(node, str) and not callable(node)
-
-
-def tree_node_only(predicate):
-    return lambda node: is_tree_node(node) and predicate(node)
+    return not_(or_(is_text_node, is_context_node))(node)
 
 
 def tag_is(tag):
-    return tree_node_only(lambda node: node[TAG] == tag)
+    return and_(is_tree_node, lambda node: node[TAG] == tag)
 
 
 def id_is(id):
@@ -26,7 +30,7 @@ def has_class(cls):
 
 
 def has_attr(attr):
-    return tree_node_only(lambda node: attr in node[ATTRS])
+    return and_(is_tree_node, lambda node: attr in node[ATTRS])
 
 
 def has_attr_with_value(attr, value):
@@ -34,7 +38,7 @@ def has_attr_with_value(attr, value):
 
 
 def text_contains(text):
-    return lambda node: isinstance(node, str) and text in node
+    return and_(is_text_node, lambda node: text in node)
 
 
 def any_immediate_child_matches(predicate):
