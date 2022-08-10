@@ -37,7 +37,7 @@ def text_contains(text):
     return lambda node: isinstance(node, str) and text in node
 
 
-def direct_children_match(predicate):
+def any_direct_child_matches(predicate):
     return lambda node: any(predicate(child) for child in node[CHILDREN])
 
 
