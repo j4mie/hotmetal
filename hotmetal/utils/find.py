@@ -14,7 +14,7 @@ def tag_is(tag):
 
 
 def id_is(id):
-    return tree_node_only(lambda node: node[ATTRS].get("id") == id)
+    return has_attr_with_value("id", id)
 
 
 def has_class(cls):
