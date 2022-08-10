@@ -264,3 +264,9 @@ Given multiple predicate functions, returns a predicate function that matches no
 ### `hotmetal.utils.find.not_(predicate)`
 
 Inverts a predicate function: `find(nodes, and_(tag_is("input"), not_(has_attr_with_value("type", "hidden")))`
+
+### `hotmetal.utils.find.TAG`
+### `hotmetal.utils.find.ATTRS`
+### `hotmetal.utils.find.CHILDREN`
+
+These three constants are simply the indices into a node for each component. They enhance readability: instead of `children = node[2]` you can say `children = node[CHILDREN]`
