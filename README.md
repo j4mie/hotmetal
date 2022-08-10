@@ -186,3 +186,81 @@ def current_user_panel():
 ## Indentation control
 
 The `render` function takes an `indent` argument, which is a integer used to control how many spaces are used as indentation in the generated HTML. The default is 0, meaning the entire HTML string will be returned on a single line. You may wish to use (say) `indent=2` for development, and `indent=0` for production (essentially minifying your HTML).
+
+## Testing tools
+
+When writing tests for components, it's often useful to be able to search through a tree to find particular nodes and make assertions about them. To help with this, `hotmetal` provides a `find` function, which takes an iterable of nodes and a predicate callable, and returns a generator of nodes that match the predicate (using depth-first pre-order traversal of the nodes, much like the browser's [`querySelectorAll` function](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)).
+
+Given the following component:
+
+```python
+def header(title):
+    return ("div", {"class": "header"}, [("h1", {}, [title])])
+```
+
+You could, for example, write a test something like this:
+
+```python
+from hotmetal.utils.find import find
+from unittest import TestCase
+
+
+class HeaderTestCase(TestCase):
+    def test_title_appears_correctly_inside_h1(self):
+        node = header("hello world")
+        h1_elements = list(
+            find([node], lambda node: isinstance(node, tuple) and node[0] == "h1")
+        )
+        self.assertEqual(len(h1_elements), 1)
+        h1 = h1_elements[0]
+        children = node[2]
+        self.assertEqual(children, ["hello world"])
+```
+
+Here, a `lambda` function is being used to match against each node in the tree, which returns `True` or `False` depending on whether that node should be included in the results.
+
+However, rather than writing the `predicate` function yourself, a selection of functions are provided that address common requirements for finding nodes:
+
+### `hotmetal.utils.find.tag_is(tag)`
+
+Matches nodes by tag name: `find(nodes, tag_is("h1"))`
+
+### `hotmetal.utils.find.id_is(id)`
+
+Matches nodes by the value of the ID attribute: `find(nodes, id_is("header"))`
+
+### `hotmetal.utils.find.has_class(cls)`
+
+Matches nodes by a particular class name within the `class` attribute: `find(nodes, has_class("someclass"))`
+
+### `hotmetal.utils.find.has_attr(attr)`
+
+Matches nodes that have the given attribute, with any value: `find(nodes, has_attr("href"))`
+
+### `hotmetal.utils.find.has_attr_with_value(attr, value)`
+
+Matches nodes that have the given attribute, and also the value of that attribute is equal to the given value: `find(nodes, has_attr_with_value("type", "hidden"))`
+
+### `hotmetal.utils.find.attr_value_matches(attr, predicate)`
+
+Matches nodes that have the given attribute, and the value of that attribute matches the given predicate function: `find(nodes, attr_value_matches("class", lambda value: "background-" in value))`
+
+### `hotmetal.utils.find.text_contains(text)`
+
+Matches text nodes (strings) that contains the given text: `find(nodes, text_contains("hello world"))`
+
+### `hotmetal.utils.find.any_direct_child_matches(predicate)`
+
+Matches nodes with at least one direct child node that matches the given predicate: `find(nodes, any_direct_child_matches(text_contains("hello world")))`
+
+### `hotmetal.utils.find.or_(*predicates)`
+
+Given multiple predicate functions, returns a predicate function that matches nodes that match any of the predicates: `find(nodes, or_(tag_is("h1"), id_is("title")))`
+
+### `hotmetal.utils.find.and_(*predicates)`
+
+Given multiple predicate functions, returns a predicate function that matches nodes that match all of the predicates: `find(nodes, and_(tag_is("input"), has_attr_with_value("type", "text")))`
+
+### `hotmetal.utils.find.not_(predicate)`
+
+Inverts a predicate function: `find(nodes, and_(tag_is("input"), not_(has_attr_with_value("type", "hidden")))`
