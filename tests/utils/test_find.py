@@ -1,5 +1,6 @@
 from hotmetal.utils.find import (
     and_,
+    attr_matches,
     CHILDREN,
     direct_children,
     find,
@@ -89,6 +90,17 @@ class HasAttrTestCase(TestCase):
     def test_no_match(self):
         node = ("div", {"nope": "nope"}, [])
         self.assertIs(has_attr("yep")(node), False)
+
+
+class AttrMatchesTestCase(TestCase):
+    def test_match(self):
+        node = ("div", {"yep": "oh yep"}, [])
+        self.assertIs(attr_matches("yep", lambda v: v == "oh yep")(node), True)
+
+    def test_no_match(self):
+        node = ("div", {"nope": "nope"}, [])
+        self.assertIs(attr_matches("yep", lambda v: v == "nope")(node), False)
+        self.assertIs(attr_matches("nope", lambda v: v == "yep")(node), False)
 
 
 class HasAttrWithValueTestCase(TestCase):
