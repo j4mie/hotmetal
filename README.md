@@ -223,35 +223,35 @@ As an alternative to writing the `predicate` function yourself, a selection of f
 
 ### `hotmetal.utils.find.tag_is(tag)`
 
-Matches nodes by tag name: `find(nodes, tag_is("h1"))`
+Returns a predicate function that matches nodes by tag name: `find(nodes, tag_is("h1"))`
 
 ### `hotmetal.utils.find.id_is(id)`
 
-Matches nodes by the value of the ID attribute: `find(nodes, id_is("header"))`
+Returns a predicate function that matches nodes by the value of the ID attribute: `find(nodes, id_is("header"))`
 
 ### `hotmetal.utils.find.has_class(cls)`
 
-Matches nodes by a particular class name within the `class` attribute: `find(nodes, has_class("someclass"))`
+Returns a predicate function that matches nodes by a particular class name within the `class` attribute: `find(nodes, has_class("someclass"))`
 
 ### `hotmetal.utils.find.has_attr(attr)`
 
-Matches nodes that have the given attribute, with any value: `find(nodes, has_attr("href"))`
+Returns a predicate function that matches nodes that have the given attribute, with any value: `find(nodes, has_attr("href"))`
 
 ### `hotmetal.utils.find.has_attr_with_value(attr, value)`
 
-Matches nodes that have the given attribute, and also the value of that attribute is equal to the given value: `find(nodes, has_attr_with_value("type", "hidden"))`
+Returns a predicate function that matches nodes that have the given attribute, and also the value of that attribute is equal to the given value: `find(nodes, has_attr_with_value("type", "hidden"))`
 
 ### `hotmetal.utils.find.attr_value_matches(attr, predicate)`
 
-Matches nodes that have the given attribute, and the value of that attribute matches the given predicate function: `find(nodes, attr_value_matches("class", lambda value: "background-" in value))`
+Returns a predicate function that matches nodes that have the given attribute, and the value of that attribute matches the given predicate function: `find(nodes, attr_value_matches("class", lambda value: "background-" in value))`
 
 ### `hotmetal.utils.find.text_contains(text)`
 
-Matches text nodes (strings) that contains the given text: `find(nodes, text_contains("hello world"))`
+Returns a predicate function that matches text nodes (strings) that contain the given text: `find(nodes, text_contains("hello world"))`
 
 ### `hotmetal.utils.find.any_immediate_child_matches(predicate)`
 
-Matches nodes with at least one direct child node that matches the given predicate: `find(nodes, any_immediate_child_matches(text_contains("hello world")))`
+Returns a predicate function that matches nodes with at least one direct child node that matches the given predicate: `find(nodes, any_immediate_child_matches(text_contains("hello world")))`
 
 ### `hotmetal.utils.find.or_(*predicates)`
 
