@@ -2,7 +2,7 @@ from hotmetal.utils.find import (
     and_,
     attr_matches,
     CHILDREN,
-    direct_children,
+    direct_children_match,
     find,
     has_attr,
     has_attr_with_value,
@@ -166,12 +166,18 @@ class NotTestCase(TestCase):
         self.assertIs(not_(tag_is("div"))(node), False)
 
 
-class DirectChildrenTestCase(TestCase):
+class DirectChildrenMatchTestCase(TestCase):
     def test_match(self):
         nodes = [("div", {}, [("div", {"id": "test"}, [])]), ("div", {}, [])]
-        predicate = direct_children(id_is("test"))
+        predicate = direct_children_match(id_is("test"))
         result = [*find(nodes, predicate)]
         self.assertEqual(result, [("div", {}, [("div", {"id": "test"}, [])])])
+
+    def test_no_match(self):
+        nodes = [("div", {}, [("div", {"id": "test"}, [])]), ("div", {}, [])]
+        predicate = direct_children_match(id_is("nope"))
+        result = [*find(nodes, predicate)]
+        self.assertEqual(result, [])
 
 
 def example_page(title):
