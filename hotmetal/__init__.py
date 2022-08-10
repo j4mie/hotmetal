@@ -1,5 +1,7 @@
 import html
 
+__version__ = "0.0.1"
+
 # https://html.spec.whatwg.org/#void-elements
 VOID_ELEMENTS = set(
     "area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr".split(",")
