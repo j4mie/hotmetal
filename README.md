@@ -249,9 +249,9 @@ Matches nodes that have the given attribute, and the value of that attribute mat
 
 Matches text nodes (strings) that contains the given text: `find(nodes, text_contains("hello world"))`
 
-### `hotmetal.utils.find.any_direct_child_matches(predicate)`
+### `hotmetal.utils.find.any_immediate_child_matches(predicate)`
 
-Matches nodes with at least one direct child node that matches the given predicate: `find(nodes, any_direct_child_matches(text_contains("hello world")))`
+Matches nodes with at least one direct child node that matches the given predicate: `find(nodes, any_immediate_child_matches(text_contains("hello world")))`
 
 ### `hotmetal.utils.find.or_(*predicates)`
 

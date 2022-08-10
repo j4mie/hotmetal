@@ -1,6 +1,6 @@
 from hotmetal.utils.find import (
     and_,
-    any_direct_child_matches,
+    any_immediate_child_matches,
     attr_value_matches,
     CHILDREN,
     find,
@@ -166,16 +166,16 @@ class NotTestCase(TestCase):
         self.assertIs(not_(tag_is("div"))(node), False)
 
 
-class AnyDirectChildMatchesTestCase(TestCase):
+class AnyImmediateChildMatchesTestCase(TestCase):
     def test_match(self):
         nodes = [("div", {}, [("div", {"id": "test"}, [])]), ("div", {}, [])]
-        predicate = any_direct_child_matches(id_is("test"))
+        predicate = any_immediate_child_matches(id_is("test"))
         result = [*find(nodes, predicate)]
         self.assertEqual(result, [("div", {}, [("div", {"id": "test"}, [])])])
 
     def test_no_match(self):
         nodes = [("div", {}, [("div", {"id": "test"}, [])]), ("div", {}, [])]
-        predicate = any_direct_child_matches(id_is("nope"))
+        predicate = any_immediate_child_matches(id_is("nope"))
         result = [*find(nodes, predicate)]
         self.assertEqual(result, [])
 
