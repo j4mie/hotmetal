@@ -219,7 +219,13 @@ class HeaderTestCase(TestCase):
 
 Here, a `lambda` is being used to match against each node in the tree, which returns `True` or `False` depending on whether that node should be included in the results. When writing the predicate, remember that the `node` argument may be a tree node (a tuple), or a text node (a string), or a function (for nodes that require `context`, see above).
 
-As an alternative to writing the `predicate` function yourself, a selection of functions are provided that address common requirements for finding nodes:
+As an alternative to writing the `predicate` function yourself, a selection of functions are provided that address common requirements for finding nodes. The `find` line in the above example can be rewritten like this:
+
+```python
+h1_elements = list(find([node], tag_is("h1")))
+```
+
+A full list of these predicate functions is below:
 
 ### `hotmetal.utils.find.tag_is(tag)`
 
