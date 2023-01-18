@@ -141,7 +141,7 @@ But what's that `safe` thing about?
 
 You have to be careful when generating HTML. If any part of your markup or text content can be supplied by a user (which is common in web applications), you may be vulnerable to cross-site scripting (XSS) attacks. The Django docs have [a good explanation of why this is important](https://docs.djangoproject.com/en/4.0/ref/templates/language/#automatic-html-escaping-1).
 
-By default, `hotmetal` escapes _every_ string it renders using Python's built-in [`html.escape`](https://docs.python.org/3/library/html.html#html.escape) functionality. So you can add user-generated content to your documents without worrying.
+By default, `hotmetal` escapes _every_ string it renders using the same approach as Python's built-in [`html.escape`](https://docs.python.org/3/library/html.html#html.escape) functionality. So you can add user-generated content to your documents without worrying.
 
 If you want to add some raw markup that you _know_ is safe (some hand-crafted HTML, or the rendered output of another templating system that already escapes unsafe content) then you can wrap those strings in the `safe` function. See the above section for an example.
 
