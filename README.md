@@ -8,6 +8,8 @@ Install from PyPI
 
     pip install hotmetal
 
+For use with [MicroPython](https://micropython.org/), just copy-and-paste the contents of `hotmetal/__init__.py` into a file called `hotmetal.py`.
+
 ## What is hotmetal?
 
 `hotmetal` is a tiny library that lets you generate HTML directly from Python primitive data structures without using any sort of text-based template language. It is an alternative to [Jinja](https://jinja.palletsprojects.com/), [Django templates](https://docs.djangoproject.com/en/4.0/topics/templates/), etc. It is loosely inspired by ideas from [React](https://reactjs.org/), [Mithril](https://mithril.js.org/vnodes.html) and other JavaScript libraries. It is also similar to [Hyperpython](https://github.com/ejplatform/hyperpython), but it's even simpler. It attempts to stay as close as possible to [the HTML spec](https://html.spec.whatwg.org/).
