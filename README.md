@@ -187,6 +187,19 @@ def current_user_panel():
 
 The `render` function takes an `indent` argument, which is a integer used to control how many spaces are used as indentation in the generated HTML. The default is 0, meaning the entire HTML string will be returned on a single line. You may wish to use (say) `indent=2` for development, and `indent=0` for production (essentially minifying your HTML).
 
+## Generating class names
+
+A function is provided that can be used to generate strings of class names based on various arguments. This is closely based on the [classnames](https://github.com/JedWatson/classnames/) JavaScript library.
+
+```python
+from hotmetal.utils.classnames import classnames
+
+
+def header(title):
+    title_is_green = title.lower() == "green"
+    return ("h1", {"class": classnames("title", {"green": title_is_green})}, [title])
+```
+
 ## Testing tools
 
 When writing tests for components, it's often useful to be able to search through a tree to find particular nodes and make assertions about them. To help with this, `hotmetal` provides a `find` function, which takes an iterable of nodes and a predicate callable, and returns a generator that yields nodes that match the predicate (using depth-first pre-order traversal of the nodes, much like the browser's [`querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) function).
