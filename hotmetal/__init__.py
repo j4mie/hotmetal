@@ -14,7 +14,7 @@ def _esc(s):
     """
     Replace special characters "&", "<" and ">" to HTML-safe sequences.
 
-    This funtion is largely copy-pasted from the "html" module in the cpython
+    This function is largely copy-pasted from the "html" module in the cpython
     standard library to ensure it works on platforms that don't have this
     module (eg micropython).
     """
